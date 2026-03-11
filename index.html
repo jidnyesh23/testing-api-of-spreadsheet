@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Contact Form</title>
+</head>
+
+<body>
+	<h1>Contact Us</h1>
+	<form id="contactForm">
+		<label for="name">Name:</label><br>
+		<input type="text" id="name" name="name" required><br><br>
+		<label for="email">Email:</label><br>
+		<input type="email" id="email" name="email" required><br><br>
+		<label for="phone">Phone No:</label><br>
+		<input type="tel" id="phone" name="phone" required><br><br>
+		<label for="query">Your Query:</label><br>
+		<textarea id="query" name="query" required></textarea><br><br>
+		<button type="submit">Submit</button>
+	</form>
+	<script>
+		document.getElementById('contactForm').addEventListener('submit', function (e) {
+			e.preventDefault();
+			const formData = {
+				name: document.getElementById('name').value,
+				email: document.getElementById('email').value,
+				phone: document.getElementById('phone').value,
+				query: document.getElementById('query').value
+			};
+			fetch('https://script.google.com/macros/s/AKfycbxP3SV6c1NTT9TRvtTaZui2UIVvL5D9wP-_Z4Dn-qWxbl9-U9OJdaX0KjgrMLyuynop9A/exec', {
+				method: 'POST',
+				mode: 'no-cors', // This avoids CORS issues but we won't see the response content
+				body: JSON.stringify(formData),
+				headers: {
+					'Content-Type': 'text/plain;charset=utf-8'
+				}
+			})
+				.then(() => {
+					alert('Success! Your data has been sent.');
+					document.getElementById('contactForm').reset();
+				})
+				.catch(error => {
+					alert('Error: ' + error);
+				});
+		});
+	</script>
+</body>
+
+</html>
